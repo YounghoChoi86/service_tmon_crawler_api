@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StringDivisionService {
     public StringDivisionResult divisionString(StringBuilder dataStringBuilder, int divisionFactor) {
+        log.debug("call!");
         int dataLength = dataStringBuilder.length();
         int sperationIndex = getSperateIndex(divisionFactor, dataLength);
 
@@ -15,7 +16,11 @@ public class StringDivisionService {
         String remainStr = dataStringBuilder.substring(sperationIndex);
         log.debug("result : {}[{}] {}[{}]", quotientStr, quotientStr.length(),
                 remainStr, remainStr.length());
-
+        if (dataLength < divisionFactor) {
+            String tmpStr = quotientStr;
+            quotientStr = remainStr;
+            remainStr = tmpStr;
+        }
         return StringDivisionResult.builder()
                 .quotientStr(quotientStr)
                 .remainStr(remainStr)
@@ -23,7 +28,7 @@ public class StringDivisionService {
     }
 
     private int getSperateIndex(int divisionFactor, int dataLength) {
-        int sperationIndex;
+        int sperationIndex = 0;
 
         if (dataLength <= divisionFactor) {
             sperationIndex = dataLength;

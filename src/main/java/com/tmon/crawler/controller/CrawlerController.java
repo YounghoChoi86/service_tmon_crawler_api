@@ -46,9 +46,10 @@ public class CrawlerController {
         ValidationCheckUtil.checkDivisionFactor(divisionFactor);
 
         StringBuilder dataStringBuilder = textDataProcessService.executeWithUrl(url);
-
+        log.debug("dataStringBuilder={}", dataStringBuilder.toString());
         StringDivisionResult stringDivisionResult =
                 stringDivisionService.divisionString(dataStringBuilder, divisionFactor);
+        log.debug("stringDivisionResult={}", stringDivisionResult);
         return stringDivisionResult;
     }
 }

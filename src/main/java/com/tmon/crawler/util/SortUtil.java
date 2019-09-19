@@ -26,7 +26,7 @@ public class SortUtil {
             char c = data.charAt(i);
             if (AlphabetComparator.isAlphabetic(c)) {
                 alphabeticStingBulder.append(c);
-                log.info("append={} {}", c, (int)c);
+                log.debug("append={} {}", c, (int)c);
             } else if (Character.isDigit(c)) {
                 numericStingBulder.append(c);
             } else {
