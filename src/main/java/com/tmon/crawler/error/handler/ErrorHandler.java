@@ -24,13 +24,20 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ErrorInfo handleNumberFormatException(NumberFormatException e) {
-        return new ErrorInfo(HttpStatus.INTERNAL_SERVER_ERROR.name(), e.getMessage());
+        return new ErrorInfo(HttpStatus.INTERNAL_SERVER_ERROR.name(), "잘못된 숫자입니다" + e.getMessage());
     }
 
     @ExceptionHandler(NotAlphabeticException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ErrorInfo handleNotAlphabeticException(NotAlphabeticException e) {
+        return new ErrorInfo(HttpStatus.INTERNAL_SERVER_ERROR.name(),"알바벳이 아닌 문자가 포함되어 있습니다" + e.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorInfo handleException(Exception e) {
         return new ErrorInfo(HttpStatus.INTERNAL_SERVER_ERROR.name(), e.getMessage());
     }
 }

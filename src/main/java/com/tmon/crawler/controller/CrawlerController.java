@@ -24,9 +24,9 @@ public class CrawlerController {
     private StringDivisionService stringDivisionService;
 
     @GetMapping("/html")
-    public StringDivisionResult processHtmlData(@RequestParam String url,
-                                      @RequestParam int divisionFactor) throws Exception {
-
+    public StringDivisionResult
+    processHtmlData(@RequestParam(name="url", required = true, defaultValue = "") String url,
+                    @RequestParam(name="divisionFactor", required = true) int divisionFactor) throws Exception {
         ValidationCheckUtil.checkUrl(url);
         ValidationCheckUtil.checkDivisionFactor(divisionFactor);
 
@@ -39,8 +39,9 @@ public class CrawlerController {
     }
 
     @GetMapping("/text")
-    public StringDivisionResult processTextData(@RequestParam String url,
-                                      @RequestParam int divisionFactor) throws Exception {
+    public StringDivisionResult
+    processTextData(@RequestParam(name="url", required = true, defaultValue = "") String url,
+                    @RequestParam(name="divisionFactor", required = true) int divisionFactor) throws Exception {
         ValidationCheckUtil.checkUrl(url);
         ValidationCheckUtil.checkDivisionFactor(divisionFactor);
 

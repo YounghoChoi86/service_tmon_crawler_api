@@ -9,7 +9,11 @@ import java.util.Comparator;
  */
 @Slf4j
 public final class AlphabetComparator implements Comparator<Character> {
-    private final static AlphabetComparator instance = new AlphabetComparator();
+    private static final AlphabetComparator instance = new AlphabetComparator();
+    private static final int LOWER_CASE_ASCII_MIN = 0x61;
+    private static final int LOWER_CASE_ASCII_MAX = 0x7A;
+    private static final int UPPER_CASE_ASCII_MIN = 0x41;
+    private static final int UPPER_CASE_ASCII_MAX = 0x5A;
 
     private AlphabetComparator() {
         //생성자 허용
@@ -18,24 +22,34 @@ public final class AlphabetComparator implements Comparator<Character> {
     public static AlphabetComparator getInstance() {
         return instance;
     }
+    //Character.isAlphabetic의 경우 영어가 포함된 특문도 true를 리턴하여 해당 메서드를 재정의 하여 사용
+    public static boolean isAlphabetic(int c) {
+        return isLowerCase(c) || isUpperCase(c);
+    }
+    public static boolean isLowerCase(int c) {
+        return LOWER_CASE_ASCII_MIN <= c && c <= LOWER_CASE_ASCII_MAX;
+    }
+    public static boolean isUpperCase(int c) {
+        return  UPPER_CASE_ASCII_MIN <= c && c <= UPPER_CASE_ASCII_MAX;
+    }
 
     @Override
     public int compare(Character o1, Character o2) {
         int asciiChar1 = (int)o1.charValue();
         int asciiChar2 = (int)o2.charValue();
-        if (!Character.isAlphabetic(asciiChar1)) {
-            throw new NotAlphabeticException("비교 대상이 알파벳이 아닙니다.");
+        if (!isAlphabetic(asciiChar1)) {
+            throw new NotAlphabeticException(asciiChar1 + " 비교 대상이 알파벳이 아닙니다.");
         }
-        if (!Character.isAlphabetic(asciiChar2)) {
-            throw new NotAlphabeticException("비교 대상은 알파벳이 아닙니다.");
+        if (!isAlphabetic(asciiChar2)) {
+            throw new NotAlphabeticException(asciiChar2 + "비교 대상은 알파벳이 아닙니다.");
         }
-        asciiChar1 = convertNewAsciiCode(asciiChar1);
-        asciiChar2 = convertNewAsciiCode(asciiChar2);
+        asciiChar1 = convertNewCharacterCode(asciiChar1);
+        asciiChar2 = convertNewCharacterCode(asciiChar2);
 
         return asciiChar1 - asciiChar2;
     }
 
-    private int convertNewAsciiCode(int asciiCode) {
+    private int convertNewCharacterCode(int asciiCode) {
         if (Character.isLowerCase(asciiCode)) {
             return (asciiCode - 0x60) * 2;
         }

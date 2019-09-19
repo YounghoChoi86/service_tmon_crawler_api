@@ -1,6 +1,7 @@
 package com.tmon.crawler.util;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.helper.StringUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,9 +24,9 @@ public class SortUtil {
         int dataLength = data.length();
         for (int i = 0; i < dataLength; i++) {
             char c = data.charAt(i);
-            if (Character.isLowerCase(c) || Character.isUpperCase(c)) {
+            if (AlphabetComparator.isAlphabetic(c)) {
                 alphabeticStingBulder.append(c);
-                log.debug("append={}", c);
+                log.info("append={} {}", c, (int)c);
             } else if (Character.isDigit(c)) {
                 numericStingBulder.append(c);
             } else {

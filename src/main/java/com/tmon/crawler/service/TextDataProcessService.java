@@ -15,11 +15,10 @@ public class TextDataProcessService extends DataProcessTemplateService {
         Document document = Jsoup.parse(data);
         //A-Z, a-z, 0-9 이외의 문자 제거
         String text = document.text();
-        //log.info("html removed text : [{}]", text);
-        //immutable String에서 허용 문자만 제거하고 return
+        log.debug("html removed text : [{}]", text);
         StringBuilder textStrinbBuilder = SortUtil.sortWithNewOrdering(text);
         String resultString = textStrinbBuilder.toString();
-        //log.info("a-z A-Z 0-9만 허용 : [{}] length=[{}]", resultString, resultString.length());
+        log.debug("a-z A-Z 0-9만 허용 : [{}] length=[{}]", resultString, resultString.length());
         return textStrinbBuilder;
     }
 }
