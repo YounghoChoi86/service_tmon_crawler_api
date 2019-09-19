@@ -7,6 +7,9 @@
 </head>
 <body>
 <div ng-app="app" ng-controller="controller">
+    <div ng-if="isViewLoader" class="loader">
+        <img src="/static/images/ajax-loader.gif"/>
+    </div>
     * url : <input type="text" ng-model="requestUrl"><br/>
     * 출력 묶음 단계 : <input type="text" ng-model="divisionFactor"><br/>
     <select name="requestTypes" id="requestTypes" ng-model="data.requestType">

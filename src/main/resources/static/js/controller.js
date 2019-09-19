@@ -12,9 +12,15 @@ app.controller('controller', function($scope, $filter, $http) {
     $scope.quotientStr = '';
     $scope.remainStr = '';
     $scope.divisionFactor = '1';
+    $scope.isViewLoader = false;
 
     $scope.clickSend = function() {
         var path = '/crawlers';
+        if ($scope.isViewLoader == true) {
+            alert("처리 중입니다.. 잠시만 기다려주세요");
+            return;
+        }
+        $scope.isViewLoader = true;
         console.log('' + $scope.data.requestType);
         if ($scope.data.requestType === 'html') {
             path += '/html';
@@ -32,8 +38,10 @@ app.controller('controller', function($scope, $filter, $http) {
             data.result = data;
             $scope.quotientStr = data.result.quotientStr;
             $scope.remainStr = data.result.remainStr;
+            $scope.isViewLoader = false;
         }).error(function (data, status, header, config) {
             alert(data.message);
+            $scope.isViewLoader = false;
         })
     }
 });
