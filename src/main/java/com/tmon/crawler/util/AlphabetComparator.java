@@ -50,10 +50,10 @@ public final class AlphabetComparator implements Comparator<Character> {
     }
 
     private int convertNewCharacterCode(int asciiCode) {
-        if (Character.isLowerCase(asciiCode)) {
+        if (isLowerCase(asciiCode)) {
             return (asciiCode - LOWER_CASE_ASCII_MIN - 1) * 2;
         }
-        if (Character.isUpperCase(asciiCode)) {
+        if (isUpperCase(asciiCode)) {
             return (asciiCode - UPPER_CASE_ASCII_MIN - 1) * 2 - 1;
         }
         throw new NotAlphabeticException(asciiCode + " 대상은 알파벳이 아닙니다.");
