@@ -18,10 +18,8 @@ public class ValidationCheckUtil {
     public static void checkUrl(String url) throws ValidationException {
         log.debug("checkUrl={}", url);
         if (Strings.isNullOrEmpty(url)){
-            if (!urlValidator.isValid(url)) {
-                throw new ValidationException(String.format("url(%s)는 유효하지 않은 값입니다."
+            throw new ValidationException(String.format("url(%s)는 유효하지 않은 값입니다."
                         , url));
-            }
         }
 
         if (!urlValidator.isValid(url)) {
